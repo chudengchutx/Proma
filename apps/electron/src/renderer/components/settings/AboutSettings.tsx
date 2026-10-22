@@ -442,8 +442,8 @@ function ShellEnvironmentCard(): React.ReactElement | null {
 export function AboutSettings(): React.ReactElement {
   return (
     <SettingsSection
-      title="关于 Proma"
-      description="集成通用 AI Agent 的下一代人工智能软件"
+      title="关于 Lucas"
+      description="基于 Proma 开源版的本地定制客户端"
     >
       <SettingsCard>
         <SettingsRow label="版本">

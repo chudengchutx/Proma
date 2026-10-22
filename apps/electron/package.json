@@ -1,7 +1,7 @@
 {
   "name": "@proma/electron",
-  "version": "0.12.26",
-  "description": "Proma next gen ai software with general agents - Electron App",
+  "version": "0.12.27",
+  "description": "Lucas - Proma open-source fork with general agents - Electron App",
   "main": "dist/main.cjs",
   "author": {
     "name": "ErlichLiu",

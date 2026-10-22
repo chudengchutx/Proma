@@ -2,10 +2,15 @@ import { app, BrowserWindow, dialog, Menu, nativeTheme, protocol, screen, shell 
 import { join } from 'path'
 import { existsSync } from 'fs'
 
+// 品牌名：开源定制版显示为 Lucas，并与商业版 Proma 隔离 userData / 单实例锁
+app.setName('Lucas')
+
 // Dev 与正式版使用独立的 userData 目录，避免共享 Chromium SingletonLock 导致 dev 启动被静默退出
 // 必须在任何会读取 userData 路径的模块加载之前执行
 if (!app.isPackaged) {
-  app.setPath('userData', join(app.getPath('appData'), '@proma/electron-dev'))
+  app.setPath('userData', join(app.getPath('appData'), '@lucas/electron-dev'))
+} else {
+  app.setPath('userData', join(app.getPath('appData'), '@lucas/electron'))
 }
 
 // 单实例锁：防止重复启动同一个版本（dev/prod 因 userData 已隔离，互不影响）
@@ -17,8 +22,8 @@ if (!app.isPackaged) {
 // second-instance 事件，由主实例负责显示窗口。
 if (!app.requestSingleInstanceLock()) {
   console.warn(
-    '[启动] 已有 Proma 进程持有单实例锁，本次启动将退出。\n' +
-      '  如果窗口未出现，可能旧进程已卡死。请运行 `killall Proma` 后重试。',
+    '[启动] 已有 Lucas 进程持有单实例锁，本次启动将退出。\n' +
+      '  如果窗口未出现，可能旧进程已卡死。请运行 `killall Lucas` 后重试。',
   )
   app.quit()
 } else {
@@ -347,6 +352,7 @@ function createWindow(): void {
 
   mainWindow = new BrowserWindow({
     ...initialBounds,
+    title: 'Lucas',
     minWidth: 800,
     minHeight: 600,
     icon: iconExists ? iconPath : undefined,

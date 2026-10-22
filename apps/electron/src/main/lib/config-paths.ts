@@ -1,8 +1,8 @@
 /**
  * 配置路径工具
  *
- * 管理 Proma 应用的本地配置文件路径。
- * 所有用户配置存储在 ~/.proma/ 目录下。
+ * 管理 Lucas（开源定制版）应用的本地配置文件路径。
+ * 所有用户配置存储在 ~/.lucas/ 目录下，与商业版 ~/.proma/ 隔离。
  */
 
 import { join, basename } from 'node:path'
@@ -12,28 +12,28 @@ import { homedir } from 'node:os'
 /**
  * 获取配置目录名称
  *
- * 开发模式下返回 '.proma-dev'，正式版本返回 '.proma'。
+ * 开发模式下返回 '.lucas-dev'，正式版本返回 '.lucas'。
  *
  * 检测优先级：
- * 1. PROMA_DEV=1 环境变量（显式覆盖）
+ * 1. PROMA_DEV=1 环境变量（显式覆盖为开发目录）
  * 2. Electron app.isPackaged（未打包 = 开发模式）
- * 3. 兜底 '.proma'
+ * 3. 兜底 '.lucas'
  */
 let _configDirName: string | undefined
 
 export function getConfigDirName(): string {
   if (_configDirName === undefined) {
     if (process.env.PROMA_DEV === '1') {
-      _configDirName = '.proma-dev'
+      _configDirName = '.lucas-dev'
     } else {
       try {
         const { app } = require('electron')
-        _configDirName = app.isPackaged ? '.proma' : '.proma-dev'
+        _configDirName = app.isPackaged ? '.lucas' : '.lucas-dev'
       } catch {
-        _configDirName = '.proma'
+        _configDirName = '.lucas'
       }
     }
-    const mode = _configDirName === '.proma-dev' ? '开发模式' : '正式版本'
+    const mode = _configDirName === '.lucas-dev' ? '开发模式' : '正式版本'
     console.log(`[配置] 配置目录: ~/${_configDirName}/（${mode}）`)
   }
   return _configDirName
@@ -42,7 +42,7 @@ export function getConfigDirName(): string {
 /**
  * 获取配置目录路径
  *
- * 开发模式返回 ~/.proma-dev/，正式版本返回 ~/.proma/。
+ * 开发模式返回 ~/.lucas-dev/，正式版本返回 ~/.lucas/。
  * 如果目录不存在则自动创建。
  */
 export function getConfigDir(): string {
