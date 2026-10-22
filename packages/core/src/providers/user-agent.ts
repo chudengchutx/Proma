@@ -1,16 +1,16 @@
-const PROMA_REPO_URL = 'https://github.com/ErlichLiu/Proma'
+const LUMAX_REPO_URL = 'https://github.com/ErlichLiu/Lumax'
 
-let _promaVersion = '0.0.0'
+let _lumaxVersion = '0.0.0'
 
-export function setPromaVersion(version: string): void {
-  _promaVersion = version
+export function setLumaxVersion(version: string): void {
+  _lumaxVersion = version
 }
 
-export function getPromaVersion(): string {
-  return _promaVersion
+export function getLumaxVersion(): string {
+  return _lumaxVersion
 }
 
-export function getPromaUserAgent(version?: string): string {
-  const v = version ?? _promaVersion
-  return `Proma/${v} (+${PROMA_REPO_URL})`
+export function getLumaxUserAgent(version?: string): string {
+  const v = version ?? _lumaxVersion
+  return `Lumax/${v} (+${LUMAX_REPO_URL})`
 }

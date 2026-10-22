@@ -1,7 +1,7 @@
 /**
  * 文本输出服务
  *
- * 语音输入完成后优先写入 Proma 输入框，否则尝试写入当前光标位置。
+ * 语音输入完成后优先写入 Lumax 输入框，否则尝试写入当前光标位置。
  */
 
 import { BrowserWindow, clipboard } from 'electron'
@@ -10,13 +10,13 @@ import type { VoiceDictationCommitResult, VoiceDictationSettings } from '../../t
 import { getMainWindow } from '../index'
 import { pasteTextAtCurrentCursor } from './text-insertion-service'
 
-let targetWasPromaInput = false
+let targetWasLumaxInput = false
 
-/** 在显示语音浮窗前记录目标是否为 Proma 主窗口。 */
-export function captureVoiceDictationTarget(forcePromaInput?: boolean): boolean {
+/** 在显示语音浮窗前记录目标是否为 Lumax 主窗口。 */
+export function captureVoiceDictationTarget(forceLumaxInput?: boolean): boolean {
   const mainWindow = getMainWindow()
-  targetWasPromaInput = forcePromaInput ?? BrowserWindow.getFocusedWindow() === mainWindow
-  return targetWasPromaInput
+  targetWasLumaxInput = forceLumaxInput ?? BrowserWindow.getFocusedWindow() === mainWindow
+  return targetWasLumaxInput
 }
 
 export async function commitVoiceDictationText(
@@ -29,13 +29,13 @@ export async function commitVoiceDictationText(
   }
 
   const mainWindow = getMainWindow()
-  const shouldWriteProma =
-    settings.outputMode === 'proma-input' ||
-    (settings.outputMode === 'auto' && targetWasPromaInput)
+  const shouldWriteLumax =
+    settings.outputMode === 'lumax-input' ||
+    (settings.outputMode === 'auto' && targetWasLumaxInput)
 
-  if (shouldWriteProma && mainWindow && !mainWindow.isDestroyed()) {
+  if (shouldWriteLumax && mainWindow && !mainWindow.isDestroyed()) {
     mainWindow.webContents.send(VOICE_DICTATION_IPC_CHANNELS.INSERT_TEXT, { text: trimmed })
-    return { mode: 'proma-input', success: true, message: '已写入 Proma 输入框' }
+    return { mode: 'lumax-input', success: true, message: '已写入 Lumax 输入框' }
   }
 
   if (settings.outputMode === 'auto') {

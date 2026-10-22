@@ -63,11 +63,11 @@ import { feishuBotStatesAtom } from './atoms/feishu-atoms'
 import { dingtalkBotStatesAtom } from './atoms/dingtalk-atoms'
 import { currentConversationIdAtom, channelsAtom, channelsLoadedAtom, selectedModelAtom } from './atoms/chat-atoms'
 import { appModeAtom } from './atoms/app-mode'
-import type { FeishuBotBridgeState, FeishuBridgeState, DingTalkBotBridgeState, DingTalkBridgeState } from '@proma/shared'
+import type { FeishuBotBridgeState, FeishuBridgeState, DingTalkBotBridgeState, DingTalkBridgeState } from '@lumax/shared'
 import { Toaster } from './components/ui/sonner'
 import { toast } from 'sonner'
-import { diffCapabilities } from '@proma/shared'
-import type { WorkspaceCapabilities } from '@proma/shared'
+import { diffCapabilities } from '@lumax/shared'
+import type { WorkspaceCapabilities } from '@lumax/shared'
 import { showCapabilityChangeToasts } from './lib/capabilities-toast'
 import { UpdateDialog } from './components/settings/UpdateDialog'
 import { GlobalShortcuts } from './components/shortcuts/GlobalShortcuts'
@@ -766,31 +766,25 @@ function ScratchPadPersistence(): null {
     const init = async (): Promise<void> => {
       try {
         // 加载 scratch-pad.md 内容（磁盘存的是 markdown，转为 HTML 给编辑器用）
-        const [settings, loadedMd] = await Promise.all([
-          window.electronAPI.getSettings(),
-          window.electronAPI.loadScratchPad ? window.electronAPI.loadScratchPad() : Promise.resolve(''),
-        ])
+        const loadedMd = window.electronAPI.loadScratchPad
+          ? await window.electronAPI.loadScratchPad()
+          : ''
 
         const loadedHtml = loadedMd ? markdownToHtml(loadedMd) : ''
         store.set(scratchPadContentAtom, loadedHtml)
         store.set(scratchPadLoadedAtom, true)
 
-        // 将 scratch tab 注入首位
+        // 首页不再展示草稿页；若上次停在草稿页，回到欢迎页或已有会话
         const currentTabs = store.get(tabsAtom)
         const newTabs = ensureScratchPadTab(currentTabs)
-
-        // 如果 tabs 数组变了（新增了 scratch tab），写入 store
-        if (newTabs.length > currentTabs.length || newTabs[0]?.id !== currentTabs[0]?.id) {
+        if (newTabs.length !== currentTabs.length || newTabs[0]?.id !== currentTabs[0]?.id) {
           store.set(tabsAtom, newTabs)
         }
-
-        // 恢复 scratch 激活状态：如果上次关闭时在 scratch 页，则激活它
-        // 不改变 appMode，保留原有的 chat/agent 侧边栏状态
-        if (settings.scratchPadActive) {
-          store.set(activeTabIdAtom, SCRATCH_PAD_ID)
+        if (store.get(activeTabIdAtom) === SCRATCH_PAD_ID) {
+          store.set(activeTabIdAtom, newTabs[0]?.id ?? null)
         }
 
-        console.log('[ScratchPad] 初始化完成，已加载内容:', !!loadedMd)
+        console.log('[ScratchPad] 初始化完成，草稿页已从首页隐藏，已加载内容:', !!loadedMd)
       } catch (err) {
         console.error('[ScratchPad] 初始化失败:', err)
       } finally {

@@ -6,7 +6,7 @@ import Link from '@tiptap/extension-link'
 import { Markdown } from 'tiptap-markdown'
 import type { MarkdownStorage } from 'tiptap-markdown'
 import { TextSelection } from '@tiptap/pm/state'
-import type { FileAccessOptions } from '@proma/shared'
+import type { FileAccessOptions } from '@lumax/shared'
 import { cn } from '@/lib/utils'
 import { MARKDOWN_RENDERER_VERSION, markdownToHtml } from '@/lib/markdown-rich-text'
 import {
@@ -200,15 +200,15 @@ export function MarkdownRichEditor({
         className={cn(
           'h-full min-h-full flex-1',
           isEditable
-            ? '[&_.proma-mermaid-preview]:hidden [&_.proma-code-source-body]:block'
+            ? '[&_.lumax-mermaid-preview]:hidden [&_.lumax-code-source-body]:block'
             : [
-                '[&_.proma-code-block--mermaid]:overflow-visible',
-                '[&_.proma-code-block--mermaid]:rounded-none',
-                '[&_.proma-code-block--mermaid]:border-0',
-                '[&_.proma-code-block--mermaid]:bg-transparent',
-                '[&_.proma-code-block--mermaid_.proma-code-header]:hidden',
-                '[&_.proma-code-block--mermaid_.proma-mermaid-preview]:block',
-                '[&_.proma-code-block--mermaid_.proma-code-source-body]:hidden',
+                '[&_.lumax-code-block--mermaid]:overflow-visible',
+                '[&_.lumax-code-block--mermaid]:rounded-none',
+                '[&_.lumax-code-block--mermaid]:border-0',
+                '[&_.lumax-code-block--mermaid]:bg-transparent',
+                '[&_.lumax-code-block--mermaid_.lumax-code-header]:hidden',
+                '[&_.lumax-code-block--mermaid_.lumax-mermaid-preview]:block',
+                '[&_.lumax-code-block--mermaid_.lumax-code-source-body]:hidden',
               ],
         )}
       />

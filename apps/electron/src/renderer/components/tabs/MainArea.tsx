@@ -8,7 +8,7 @@
 
 import * as React from 'react'
 import { useAtomValue, useSetAtom, useAtom } from 'jotai'
-import { tabsAtom, activeTabIdAtom, activeTabAtom } from '@/atoms/tab-atoms'
+import { tabsAtom, activeTabIdAtom, activeTabAtom, ensureScratchPadTab, SCRATCH_PAD_ID } from '@/atoms/tab-atoms'
 import { Panel } from '@/components/app-shell/Panel'
 import { WelcomeView } from '@/components/welcome/WelcomeView'
 import { previewPanelOpenMapAtom, previewSplitRatioAtom } from '@/atoms/preview-atoms'
@@ -27,6 +27,7 @@ export function MainArea(): React.ReactElement {
   useTrackSessionView()
 
   const tabs = useAtomValue(tabsAtom)
+  const setTabs = useSetAtom(tabsAtom)
   const activeTabId = useAtomValue(activeTabIdAtom)
   const setActiveTabId = useSetAtom(activeTabIdAtom)
   const activeTab = useAtomValue(activeTabAtom)
@@ -105,6 +106,15 @@ export function MainArea(): React.ReactElement {
     document.addEventListener('mousemove', onMouseMove)
     document.addEventListener('mouseup', onMouseUp)
   }, [splitRatio, setSplitRatio])
+
+  React.useEffect(() => {
+    if (!tabs.some((tab) => tab.type === 'scratch' || tab.id === SCRATCH_PAD_ID)) return
+    const nextTabs = ensureScratchPadTab(tabs)
+    setTabs(nextTabs)
+    if (activeTabId === SCRATCH_PAD_ID || !nextTabs.some((tab) => tab.id === activeTabId)) {
+      setActiveTabId(nextTabs[0]?.id ?? null)
+    }
+  }, [tabs, activeTabId, setTabs, setActiveTabId])
 
   React.useEffect(() => {
     if (tabs.length === 0) {

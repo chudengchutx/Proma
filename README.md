@@ -1,18 +1,18 @@
-# Proma
+# Lumax
 
-Proma 是一个本地优先的 AI 桌面应用，把多模型 Chat、通用 Agent、工作区、Skills、MCP、远程机器人和记忆能力放在同一个开源客户端里。
+Lumax 是一个本地优先的 AI 桌面应用，把多模型 Chat、通用 Agent、工作区、Skills、MCP、远程机器人和记忆能力放在同一个开源客户端里。
 
 它不是只面向闲聊的聊天框，而是一个可以长期沉淀个人工作流的 Agent 工作台：简单问题用 Chat，复杂任务交给 Agent，数据和配置尽量留在本地。
 
-![Proma 海报](https://img.erlich.fun/personal-blog/uPic/pb.png)
+![Lumax 海报](https://img.erlich.fun/personal-blog/uPic/pb.png)
 
 <video width="560" controls>
-  <source src="https://img.erlich.fun/personal-blog/uPic/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%20Proma.mp4" type="video/mp4">
+  <source src="https://img.erlich.fun/personal-blog/uPic/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%20Lumax.mp4" type="video/mp4">
 </video>
 
-[English README](./README.en.md) | [新手教程](./tutorial/tutorial.md) | [下载开源版](https://github.com/ErlichLiu/Proma/releases) | [下载商业版](https://proma.cool/download)
+[English README](./README.en.md) | [新手教程](./tutorial/tutorial.md) | [下载开源版](https://github.com/ErlichLiu/Lumax/releases) | [下载商业版](https://lumax.cool/download)
 
-> **最新思考 ｜ 2026 Q2–Q3**：[勇敢地解决真实的问题 — Proactive · 个人注意力 · 团队协作](./proma-thinking/proma-2026-q2-q3-thinking.md) ｜ 往期思考：[2026 Q1](./proma-thinking/proma-2026-q1-thinking.md)
+> **最新思考 ｜ 2026 Q2–Q3**：[勇敢地解决真实的问题 — Proactive · 个人注意力 · 团队协作](./lumax-thinking/lumax-2026-q2-q3-thinking.md) ｜ 往期思考：[2026 Q1](./lumax-thinking/lumax-2026-q1-thinking.md)
 
 ## 现在能做什么
 
@@ -22,20 +22,20 @@ Proma 是一个本地优先的 AI 桌面应用，把多模型 Chat、通用 Agen
 - **Skills & MCP**：每个工作区可以独立配置 Skills、MCP Server 和工作区文件，适合沉淀可复用能力。
 - **远程机器人**：支持飞书 / Lark 机器人桥接，并已提供钉钉、微信桥接入口，用手机或群聊触发本机 Agent 工作流。
 - **记忆与工具**：Chat 和 Agent 可共享记忆能力，并支持联网搜索、内置 Chat 工具、Agent 推荐等辅助能力。
-- **本地优先**：会话、工作区、附件、配置、Skills 等默认存储在 `~/.proma/`，使用 JSON / JSONL 文件组织，不依赖本地数据库。
+- **本地优先**：会话、工作区、附件、配置、Skills 等默认存储在 `~/.lumax/`，使用 JSON / JSONL 文件组织，不依赖本地数据库。
 - **桌面体验**：自动更新、代理设置、文件预览、全局快捷键、快速任务窗口、语音输入、亮色 / 暗色 / 跟随系统主题。
 
 ## 快速开始
 
 ### 下载安装
 
-从 [GitHub Releases](https://github.com/ErlichLiu/Proma/releases) 下载开源版本。当前 release notes 以 `v0.9.12` 为准，提供 macOS Apple Silicon、macOS Intel 和 Windows 安装包。
+从 [GitHub Releases](https://github.com/ErlichLiu/Lumax/releases) 下载开源版本。当前 release notes 以 `v0.9.12` 为准，提供 macOS Apple Silicon、macOS Intel 和 Windows 安装包。
 
-如果你希望开箱即用、减少 API 配置成本，也可以使用 [Proma 商业版](https://proma.cool/download)。商业版和开源版并行运行，主要区别是商业版提供内置渠道和订阅方案。
+如果你希望开箱即用、减少 API 配置成本，也可以使用 [Lumax 商业版](https://lumax.cool/download)。商业版和开源版并行运行，主要区别是商业版提供内置渠道和订阅方案。
 
 ### 首次配置
 
-1. 打开 Proma，先完成环境检查。Agent 模式依赖本机基础环境，尤其是 Git、Node.js / Bun 以及可用的 Shell。
+1. 打开 Lumax，先完成环境检查。Agent 模式依赖本机基础环境，尤其是 Git、Node.js / Bun 以及可用的 Shell。
 2. 进入 **设置 > 渠道**，添加至少一个 AI 供应商渠道，填写 Base URL、API Key 和模型列表。
 3. Chat 模式可以使用 OpenAI、Anthropic、Google 或 OpenAI 兼容协议的渠道。
 4. Agent 模式需要 Anthropic 协议或 Anthropic 兼容协议渠道，例如 Anthropic、DeepSeek、Kimi API、Kimi Coding Plan。
@@ -66,32 +66,32 @@ Proma 是一个本地优先的 AI 桌面应用，把多模型 Chat、通用 Agen
 
 用 Chat 处理轻量但真实的分析任务：整理读者关注点、生成对比表，并把首屏文案快速定稿。
 
-![Proma Chat 快速分析](./docs/assets/screenshots/proma-chat-demo.png)
+![Lumax Chat 快速分析](./docs/assets/screenshots/lumax-chat-demo.png)
 
 ### Agent 工作台
 
 Agent 在工作区里读取文件、推进任务、输出表格化结论，并把可复用文件保留在右侧工作区面板中。
 
-![Proma Agent 工作台](./docs/assets/screenshots/proma-agent-demo.png)
+![Lumax Agent 工作台](./docs/assets/screenshots/lumax-agent-demo.png)
 
 ### Skills
 
 每个工作区都可以沉淀专属 Skills。截图中的 `feedback-synthesis` 用于把用户反馈、访谈记录和 issue 聚合成主题、证据与优先级建议。
 
-![Proma 工作区 Skills](./docs/assets/screenshots/proma-skills-demo.png)
+![Lumax 工作区 Skills](./docs/assets/screenshots/lumax-skills-demo.png)
 
 ### Skills & MCP
 
 同一个工作区可以管理 stdio / HTTP MCP Server，按需启用或关闭，让 Agent 在不同项目里获得不同的外部上下文。
 
-![Proma MCP 配置](./docs/assets/screenshots/proma-mcp-demo.png)
+![Lumax MCP 配置](./docs/assets/screenshots/lumax-mcp-demo.png)
 
 ### 流式语音输入(支持全局输入)
-Proma 支持豆包的流式语音输入功能，并且支持在 Proma 内使用和 Proma 外部使用：
-- Proma 内部使用：Ctrl + ` 触发识别，再次按下结束自动输入到 Proma 内对应的输入框
-- Proma 外部使用：Ctrl + ` 触发识别，再次按下结束自动输入到当前的光标所在处，如无光标则默认写入到剪贴板
+Lumax 支持豆包的流式语音输入功能，并且支持在 Lumax 内使用和 Lumax 外部使用：
+- Lumax 内部使用：Ctrl + ` 触发识别，再次按下结束自动输入到 Lumax 内对应的输入框
+- Lumax 外部使用：Ctrl + ` 触发识别，再次按下结束自动输入到当前的光标所在处，如无光标则默认写入到剪贴板
 - 
-![Proma 语音输入](./docs/assets/screenshots/proma-typeless-input.png)
+![Lumax 语音输入](./docs/assets/screenshots/lumax-typeless-input.png)
 
 ## 支持的模型渠道
 
@@ -109,16 +109,16 @@ Proma 支持豆包的流式语音输入功能，并且支持在 Proma 内使用�
 | 通义千问 | 支持 | 支持 | Anthropic 兼容协议 |
 | 自定义端点 | 支持 | 暂不支持 | OpenAI 兼容协议 |
 
-> **Kimi Coding Plan 用户须知**：Proma 已获得 Kimi 官方白名单支持，使用 Proma 连接 Kimi Coding Plan 不会触发第三方客户端封号策略，可放心使用。
+> **Kimi Coding Plan 用户须知**：Lumax 已获得 Kimi 官方白名单支持，使用 Lumax 连接 Kimi Coding Plan 不会触发第三方客户端封号策略，可放心使用。
 
-Agent 模式底层使用 Claude Agent SDK，因此目前要求渠道提供 Anthropic 或 Anthropic 兼容协议。Chat 模式则通过 `@proma/core` 的 Provider Adapter 统一接入不同协议。
+Agent 模式底层使用 Claude Agent SDK，因此目前要求渠道提供 Anthropic 或 Anthropic 兼容协议。Chat 模式则通过 `@lumax/core` 的 Provider Adapter 统一接入不同协议。
 
 ## 本地数据
 
-Proma 采用本地文件存储，方便备份、迁移和排查问题。
+Lumax 采用本地文件存储，方便备份、迁移和排查问题。
 
 ```text
-~/.proma/
+~/.lumax/
 ├── channels.json
 ├── conversations.json
 ├── conversations/
@@ -137,14 +137,14 @@ Proma 采用本地文件存储，方便备份、迁移和排查问题。
 └── sdk-config/
 ```
 
-API Key 会通过 Electron `safeStorage` 加密后写入 `channels.json`。Proma 不使用本地数据库，核心数据结构以 JSON 配置和 JSONL 追加日志为主。
+API Key 会通过 Electron `safeStorage` 加密后写入 `channels.json`。Lumax 不使用本地数据库，核心数据结构以 JSON 配置和 JSONL 追加日志为主。
 
 ## 开发
 
-Proma 是 Bun workspace monorepo。
+Lumax 是 Bun workspace monorepo。
 
 ```text
-proma-v2/
+lumax-v2/
 ├── packages/
 │   ├── shared/     # 共享类型、IPC 常量、配置、工具函数
 │   ├── core/       # Provider Adapter、SSE、代码高亮
@@ -157,10 +157,10 @@ proma-v2/
 
 | 包 | 版本 | 职责 |
 | --- | --- | --- |
-| `@proma/electron` | `0.10.7` | Electron 桌面应用 |
-| `@proma/shared` | `0.1.20` | 共享类型、IPC 常量、配置和工具 |
-| `@proma/core` | `0.2.9` | Provider Adapter、SSE、Shiki 高亮 |
-| `@proma/ui` | `0.1.6` | 共享 React UI 组件 |
+| `@lumax/electron` | `0.10.7` | Electron 桌面应用 |
+| `@lumax/shared` | `0.1.20` | 共享类型、IPC 常量、配置和工具 |
+| `@lumax/core` | `0.2.9` | Provider Adapter、SSE、Shiki 高亮 |
+| `@lumax/ui` | `0.1.6` | 共享 React UI 组件 |
 
 常用命令：
 
@@ -215,7 +215,7 @@ bun run dist:fast
 
 ## 架构概览
 
-Proma 的核心通信路径是：
+Lumax 的核心通信路径是：
 
 ```text
 shared 类型和 IPC 常量
@@ -239,7 +239,7 @@ shared 类型和 IPC 常量
 
 ## 打包注意事项
 
-`@anthropic-ai/claude-agent-sdk` 在 `0.2.113+` 后改为平台 native binary 分发。Proma 的 esbuild 配置会把 SDK 标记为 external，`electron-builder.yml` 会把 SDK 主包和平台子包一起打进安装包。
+`@anthropic-ai/claude-agent-sdk` 在 `0.2.113+` 后改为平台 native binary 分发。Lumax 的 esbuild 配置会把 SDK 标记为 external，`electron-builder.yml` 会把 SDK 主包和平台子包一起打进安装包。
 
 修改打包配置时请特别确认：
 
@@ -264,9 +264,9 @@ shared 类型和 IPC 常量
 - 影响包行为时递增对应 package 的 patch 版本。
 - 能用测试覆盖的行为尽量补上测试，尤其是共享逻辑、IPC 契约和持久化格式。
 
-Proma 目前设有 PR 赠金计划。提交 PR 时可以在描述中留下邮箱，方便后续发放。
+Lumax 目前设有 PR 赠金计划。提交 PR 时可以在描述中留下邮箱，方便后续发放。
 
-![Proma PR Bounty](https://img.erlich.fun/personal-blog/uPic/PR%20%E8%B5%A0%E9%87%91%201.png)
+![Lumax PR Bounty](https://img.erlich.fun/personal-blog/uPic/PR%20%E8%B5%A0%E9%87%91%201.png)
 
 ## 作者
 
@@ -274,11 +274,11 @@ Proma 目前设有 PR 赠金计划。提交 PR 时可以在描述中留下邮箱
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=ErlichLiu%2FProma&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=ErlichLiu%2FLumax&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ErlichLiu/Proma&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ErlichLiu/Proma&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ErlichLiu/Proma&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ErlichLiu/Lumax&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ErlichLiu/Lumax&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ErlichLiu/Lumax&type=date&legend=top-left" />
  </picture>
 </a>
 
@@ -294,12 +294,12 @@ Proma 目前设有 PR 赠金计划。提交 PR 时可以在描述中留下邮箱
 
 ## 许可证
 
-Proma 社区版采用 [GNU Affero General Public License v3.0（AGPL-3.0）](./LICENSE) 开源，完整条款见根目录 `LICENSE` 文件。
+Lumax 社区版采用 [GNU Affero General Public License v3.0（AGPL-3.0）](./LICENSE) 开源，完整条款见根目录 `LICENSE` 文件。
 
 **个人 / 非商业使用**：自由使用、修改、分发，仅需遵守 AGPL-3.0 条款。
 
 **商业使用**：在完全遵守 AGPL-3.0 条款的前提下允许进行商业使用，包括但不限于：以源代码或修改后的形式分发软件、通过网络对外提供服务时必须公开完整修改源码（含网络交互层）、衍生作品须以 AGPL-3.0 继续授权。
 
-**商业授权（豁免 AGPL-3.0 义务）**：如果你希望将 Proma 集成到闭源产品、对外提供 SaaS 服务但不想公开衍生代码，或有其他无法满足 AGPL-3.0 条款的商业场景，请通过邮件联系获取商业许可：[erlichliu@gmail.com](mailto:erlichliu@gmail.com)。
+**商业授权（豁免 AGPL-3.0 义务）**：如果你希望将 Lumax 集成到闭源产品、对外提供 SaaS 服务但不想公开衍生代码，或有其他无法满足 AGPL-3.0 条款的商业场景，请通过邮件联系获取商业许可：[erlichliu@gmail.com](mailto:erlichliu@gmail.com)。
 
 向本项目提交 Pull Request 即视为同意将贡献以 AGPL-3.0 及未来商业许可形式授权给项目维护者。
