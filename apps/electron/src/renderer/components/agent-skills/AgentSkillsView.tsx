@@ -23,7 +23,7 @@ import {
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { workspaceCapabilitiesVersionAtom } from '@/atoms/agent-atoms'
 import { useProjectActions } from '@/hooks/useProjectActions'
-import type { McpServerEntry, SkillMeta } from '@proma/shared'
+import type { McpServerEntry, SkillMeta } from '@lumax/shared'
 import { useAgentSkillsData } from './useAgentSkillsData'
 import { SkillCard } from './SkillCard'
 import { McpCard } from './McpCard'
@@ -344,7 +344,7 @@ interface SkillsTabProps {
 
 function SkillsTab({ customSkills, builtinSkills, total, updateCount, updatingSkill, isBuiltin, onOpen, onToggle, onUpdate }: SkillsTabProps): React.ReactElement {
   if (total === 0) {
-    return <EmptyState icon={<Blocks className="size-8 text-foreground/30" />} title="暂无 Skill" hint="可以在 Agent 模式下让 Proma 帮你联网查找并安装 Skill，或从其他工作区导入。" />
+    return <EmptyState icon={<Blocks className="size-8 text-foreground/30" />} title="暂无 Skill" hint="可以在 Agent 模式下让 Lumax 帮你联网查找并安装 Skill，或从其他工作区导入。" />
   }
   if (customSkills.length === 0 && builtinSkills.length === 0) {
     return <EmptyState icon={<Search className="size-8 text-foreground/30" />} title="没有匹配的 Skill" hint="试试更换搜索关键词。" />
@@ -361,7 +361,7 @@ function SkillsTab({ customSkills, builtinSkills, total, updateCount, updatingSk
         <SkillSection title="我的 Skills" skills={customSkills} isBuiltin={isBuiltin} updatingSkill={updatingSkill} onOpen={onOpen} onToggle={onToggle} onUpdate={onUpdate} />
       )}
       {builtinSkills.length > 0 && (
-        <SkillSection title="PROMA 内置" skills={builtinSkills} isBuiltin={isBuiltin} updatingSkill={updatingSkill} onOpen={onOpen} onToggle={onToggle} onUpdate={onUpdate} />
+        <SkillSection title="LUMAX 内置" skills={builtinSkills} isBuiltin={isBuiltin} updatingSkill={updatingSkill} onOpen={onOpen} onToggle={onToggle} onUpdate={onUpdate} />
       )}
     </div>
   )
@@ -418,7 +418,7 @@ function McpTab({ entries, total, onOpen, onToggle, onRequestDelete, onAdd }: Mc
       <EmptyState
         icon={<Plus className="size-8 text-foreground/30" />}
         title="还没有 MCP 服务器"
-        hint="点击右上角「添加服务器」开始，或在 Agent 模式下让 Proma 帮你查找并配置。"
+        hint="点击右上角「添加服务器」开始，或在 Agent 模式下让 Lumax 帮你查找并配置。"
         action={
           <button
             type="button"

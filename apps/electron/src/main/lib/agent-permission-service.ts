@@ -12,17 +12,17 @@
 
 import { randomUUID } from 'node:crypto'
 import type {
-  PromaPermissionMode,
+  LumaxPermissionMode,
   PermissionRequest,
   DangerLevel,
   AskUserRequest,
-} from '@proma/shared'
+} from '@lumax/shared'
 import {
   SAFE_TOOLS,
   isSafeBashCommand,
   isDangerousCommand,
   hasDangerousStructure,
-} from '@proma/shared'
+} from '@lumax/shared'
 
 /** SDK PermissionBehavior */
 type PermissionBehavior = 'allow' | 'deny'

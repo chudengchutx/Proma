@@ -373,7 +373,7 @@ function TabBarInner({
           !isWindows && showOpenPanelButton && "pr-10",
         )}
       >
-        {tabs.map((tab) => (
+        {tabs.filter((tab) => tab.type !== 'scratch').map((tab) => (
           <TabBarItem
             key={tab.id}
             id={tab.id}

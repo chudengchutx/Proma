@@ -1,7 +1,7 @@
 import type {
   FeishuChatBinding,
   FeishuGroupInfo,
-} from '@proma/shared'
+} from '@lumax/shared'
 
 export interface SingleUserGroupInput {
   groupInfo: Pick<FeishuGroupInfo, 'members' | 'userCount'> | null | undefined

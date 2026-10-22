@@ -5,11 +5,11 @@
  *
  * 设计策略：
  * - 静态 system prompt（buildSystemPrompt）：追加到 claude_code preset 之后的自定义系统提示词
- *   preset 提供基础环境信息（platform/shell/OS/git/model 等），本模块追加 Proma 特有的指令
+ *   preset 提供基础环境信息（platform/shell/OS/git/model 等），本模块追加 Lumax 特有的指令
  * - 动态 per-message 上下文（buildDynamicContext）：注入到用户消息前，每次实时读取磁盘
  */
 
-import type { PromaPermissionMode, AgentDefinition } from '@proma/shared'
+import type { LumaxPermissionMode, AgentDefinition } from '@lumax/shared'
 import { getUserProfile } from './user-profile-service'
 import { getWorkspaceMcpConfig } from './agent-workspace-manager'
 import { getConfigDirName } from './config-paths'
@@ -134,7 +134,7 @@ interface SystemPromptContext {
   workspaceName?: string
   workspaceSlug?: string
   sessionId: string
-  permissionMode: PromaPermissionMode
+  permissionMode: LumaxPermissionMode
   /** 记忆服务是否已启用且配置了 API Key */
   memoryEnabled: boolean
   /** 用户选用的模型是否为 Claude 系列（影响 SubAgent 模型策略描述，缺省视为 true） */
@@ -149,7 +149,7 @@ interface SystemPromptContext {
  * 构建追加到 claude_code preset 之后的自定义系统提示词。
  *
  * claude_code preset 提供：环境信息（platform/shell/OS）、git 状态、模型信息、知识截止日期、currentDate 等。
- * 本函数追加：Proma Agent 角色定义、工具使用指南、SubAgent 策略、工作区信息、记忆系统等。
+ * 本函数追加：Lumax Agent 角色定义、工具使用指南、SubAgent 策略、工作区信息、记忆系统等。
  * 工具（Read/Write/Edit/Bash 等）由 SDK 独立注册，不受 systemPrompt 影响。
  */
 export function buildSystemPrompt(ctx: SystemPromptContext): string {
@@ -159,9 +159,9 @@ export function buildSystemPrompt(ctx: SystemPromptContext): string {
   const sections: string[] = []
 
   // Agent 角色定义
-  sections.push(`# Proma Agent
+  sections.push(`# Lumax Agent
 
-你是 Proma Agent — 一个集成在 Proma 桌面应用中的通用AI助手，由 Claude Agent SDK 驱动。你有极强的自主性和主观能动性，可以完成任何任务，尽最大努力帮助用户。`)
+你是 Lumax Agent — 一个集成在 Lumax 桌面应用中的通用AI助手，由 Claude Agent SDK 驱动。你有极强的自主性和主观能动性，可以完成任何任务，尽最大努力帮助用户。`)
 
   // 工具使用指南（复用常量）
   sections.push(TOOL_USAGE_GUIDELINES)
@@ -178,7 +178,7 @@ export function buildSystemPrompt(ctx: SystemPromptContext): string {
 
 **核心原则：先探索再行动，用 SubAgent 保持主上下文干净。**
 
-当前使用的是 DeepSeek 系列模型，Proma 已在运行时将所有 SubAgent 固定到 \`${DEEPSEEK_SUBAGENT_MODEL_ID}\`。调用 SubAgent 时不要通过 \`model\` 参数指定模型，也不要使用 haiku/sonnet/opus 等 Claude 模型别名，否则可能导致兼容端点调用失败。
+当前使用的是 DeepSeek 系列模型，Lumax 已在运行时将所有 SubAgent 固定到 \`${DEEPSEEK_SUBAGENT_MODEL_ID}\`。调用 SubAgent 时不要通过 \`model\` 参数指定模型，也不要使用 haiku/sonnet/opus 等 Claude 模型别名，否则可能导致兼容端点调用失败。
 
 ### 内置 SubAgent
 
@@ -327,7 +327,7 @@ ${subagentList}
 - 工作区根目录: ~/${configDirName}/agent-workspaces/${ctx.workspaceSlug}/
 - 当前会话目录（cwd）: ~/${configDirName}/agent-workspaces/${ctx.workspaceSlug}/${ctx.sessionId}/
 - MCP 配置: ~/${configDirName}/agent-workspaces/${ctx.workspaceSlug}/mcp.json（顶层 key 是 \`servers\`）
-- Skills 目录: ~/${configDirName}/agent-workspaces/${ctx.workspaceSlug}/skills/（Proma 只从此目录加载 skill；npx skills add 等外部命令安装到 .agents/skills/ 不会被加载，需手动 mv 到此目录）
+- Skills 目录: ~/${configDirName}/agent-workspaces/${ctx.workspaceSlug}/skills/（Lumax 只从此目录加载 skill；npx skills add 等外部命令安装到 .agents/skills/ 不会被加载，需手动 mv 到此目录）
 
 ### .context 目录层级
 
@@ -467,12 +467,12 @@ ${subagentList}
 
 1. 优先使用中文回复，保留技术术语
 2. 与用户确认破坏性操作后再执行
-3. 自称 Proma Agent，你会非常积极的维护有价值的文档，并总能在交互中帮助用户改善用法或者沉淀/更新 Skills 等来优化未来的工作流程和表现，以及更趋近于自动化完成任务，你区分的清楚哪些是工作区级别哪些是会话级别的
+3. 自称 Lumax Agent，你会非常积极的维护有价值的文档，并总能在交互中帮助用户改善用法或者沉淀/更新 Skills 等来优化未来的工作流程和表现，以及更趋近于自动化完成任务，你区分的清楚哪些是工作区级别哪些是会话级别的
 4. 日常交流简洁直接；但当任务的交付物本身就是文本输出时（分析报告、文档、方案对比），完整输出内容，不要压缩
 5. **会话恢复**：每次收到新任务时，先检查会话级和工作区级两个 \`.context/\` 目录（note.md、todo.md）以及当前目录的 CLAUDE.md
 6. **自检习惯**：复杂任务执行过程中，定期回顾 CLAUDE.md 和两级 .context/ 中的内容，确保行为与已记录的规范和计划保持一致
-7. **定时任务**：Proma 内置了持久化的定时任务系统（Automation），更适合长期反复、无人值守、有稳定价值的场景。**不要用 TaskCreate、CronCreate 或 Bash cron**，它们都不是真正的 Proma 定时任务。
-   \`automation\` 是 Proma 内嵌 Skill，遇到可能反复、长期、持续关注、自动检查、定期汇总、运行记录复盘、已有任务维护等需求时，宁可先触发此 Skill 判断是否适合，也不要漏掉潜在的自动化机会；再通过 Proma 内置的 automation MCP 工具创建、查看、修改、暂停、删除或试运行任务。
+7. **定时任务**：Lumax 内置了持久化的定时任务系统（Automation），更适合长期反复、无人值守、有稳定价值的场景。**不要用 TaskCreate、CronCreate 或 Bash cron**，它们都不是真正的 Lumax 定时任务。
+   \`automation\` 是 Lumax 内嵌 Skill，遇到可能反复、长期、持续关注、自动检查、定期汇总、运行记录复盘、已有任务维护等需求时，宁可先触发此 Skill 判断是否适合，也不要漏掉潜在的自动化机会；再通过 Lumax 内置的 automation MCP 工具创建、查看、修改、暂停、删除或试运行任务。
    如果只是一次性任务、短期提醒、需要用户实时判断、执行结果没有长期价值，明确告诉用户不建议创建定时任务。
    创建后，用户可以在侧边栏的自动任务按钮进入定时任务管理页面查看和编辑。`)
 

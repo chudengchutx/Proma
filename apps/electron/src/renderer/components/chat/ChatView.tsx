@@ -51,7 +51,7 @@ import type {
   ChatSendInput,
   FileAttachment,
   AttachmentSaveInput,
-} from '@proma/shared'
+} from '@lumax/shared'
 
 interface ChatViewProps {
   conversationId: string
@@ -439,8 +439,8 @@ function ChatViewInner({ conversationId }: ChatViewProps): React.ReactElement {
     const handler = (): void => {
       if (isStreaming) handleStop()
     }
-    window.addEventListener('proma:stop-generation', handler)
-    return () => window.removeEventListener('proma:stop-generation', handler)
+    window.addEventListener('lumax:stop-generation', handler)
+    return () => window.removeEventListener('lumax:stop-generation', handler)
   }, [isStreaming, handleStop])
 
   /** 删除消息 */

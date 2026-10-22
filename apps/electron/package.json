@@ -1,7 +1,7 @@
 {
-  "name": "@proma/electron",
-  "version": "0.12.27",
-  "description": "Lucas - Proma open-source fork with general agents - Electron App",
+  "name": "@lumax/electron",
+  "version": "0.12.29",
+  "description": "Lumax - open-source AI desktop app with general agents - Electron App",
   "main": "dist/main.cjs",
   "author": {
     "name": "ErlichLiu",
@@ -57,9 +57,9 @@
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@larksuiteoapi/node-sdk": "^1.65.0",
-    "@proma/core": "workspace:*",
-    "@proma/shared": "workspace:*",
-    "@proma/ui": "workspace:*",
+    "@lumax/core": "workspace:*",
+    "@lumax/shared": "workspace:*",
+    "@lumax/ui": "workspace:*",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-collapsible": "^1.1.12",
     "@radix-ui/react-context-menu": "^2.2.16",
@@ -156,5 +156,5 @@
   "build": {
     "extends": "electron-builder.yml"
   },
-  "proma": {}
+  "lumax": {}
 }
